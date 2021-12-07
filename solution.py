@@ -21,13 +21,13 @@ def main():
 		print ‘250 reply not received from server.’
 # Send MAIL FROM command and print server response.
 
-	clientSocket.send(‘Mail FROM: <alice@crepes.edu>\r\n’)# who the message will appear from
+	clientSocket.send(‘Mail FROM: <cheesecakefanatic21@gmail.com>\r\n’)# who the message will appear from
 	recv1 = clientSocket.recv(1024) #amount of data received
 	print recv1 #print data
 	if recv1[:3] != ‘250’: #if the data is not received
 		print ‘250 reply not received from server.’
 # Send RCPT TO command and print server response.
-	clientSocket.send(‘RCPT TO: <sullivanmax@my.easternct.edu> \r\n’)#recepient
+	clientSocket.send(‘RCPT TO: <thantos2121@gmail.com> \r\n’)#recepient
 	recv1 = clientSocket.recv(1024)# receive data
 	print recv1 #print data
 	if recv1[:3] != ‘250’: #if data not recieved
