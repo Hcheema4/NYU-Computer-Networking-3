@@ -12,16 +12,13 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     mailserver = "smtp.gmail.com"
     port = 587
     # Create socket called clientSocket and establish a TCP connection with mailserver and port
-
     # Fill in start
     clientSocket = socket(AF_INET, SOCK_STREAM)
     clientSocket.connect((mailserver,port))
+    tlsStart = 'STARTTLS\r\n'
     # Fill in end
 
-    recv = clientSocket.recv(1024).decode()
-    print(recv)
-    if recv[:3] != '220':
-        print('220 reply not received from server.')
+   
 
     # Send HELO command and print server response.
     heloCommand = 'HELO Alice\r\n'
@@ -30,6 +27,21 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     print(recv1)
     if recv1[:3] != '250':
         print('250 reply not received from server.')
+      
+    #establish tcp connection
+    clientSocket.send(tlsStart.encode())
+    tlsRecv = clientSocket.recv(1024).decode()
+    print(tlsRecv)
+    if tlsRecv[:3] != '220':
+	    print('220 reply not received')
+        
+    clientSocket = ssl.wrap_socket(clientSocket) #SSL after you tls 
+    clientSocket.send(heloCommand.encode())
+    recv1 = clientSocket.recv(1024).decode()
+    print(recv1)
+    if recv1[:3] != '250':
+            print("250 reply not recieved')
+                  
     
     email = "hc3592@nyu.edu \r\n"     #my nyu email addr
     
